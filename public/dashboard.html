@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#faf8f5">
+  <meta name="robots" content="noindex">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bricks Shop">
+  <title>Dashboard · Bricks</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'><rect x='2' y='12' width='44' height='26' rx='4' fill='%23151515'/><rect x='8' y='5' width='12' height='9' rx='3' fill='%23333'/><rect x='28' y='5' width='12' height='9' rx='3' fill='%23333'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/dashboard-bricks.css">
+</head>
+<body>
+  <section class="login" id="login">
+    <form class="login__box" id="loginForm">
+      <div class="login__mark">B</div>
+      <h1>Shop-Dashboard</h1>
+      <p>Bestellungen, Versand, Lager & Umsatz – live.</p>
+      <label class="field"><span>PIN</span><input id="pin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="••••" required></label>
+      <p class="note note--error" id="loginError" hidden></p>
+      <button class="btn btn--primary btn--block" type="submit">Anmelden</button>
+    </form>
+  </section>
+
+  <div class="app" id="app" hidden>
+    <header class="top">
+      <div class="top__brand"><span class="top__mark">B</span><div><b>Shop-Dashboard</b><span class="live" id="live"><i></i><em>Verbinde …</em></span></div></div>
+      <nav class="tabs" id="tabs">
+        <button class="tab is-active" data-tab="overview"><span class="tab__i">📊</span><span class="tab__l">Übersicht</span><span class="tab__s">Übersicht</span></button>
+        <button class="tab" data-tab="orders"><span class="tab__i">📦</span><span class="tab__l">Bestellungen</span><span class="tab__s">Bestellungen</span> <b id="bOrders" hidden></b></button>
+        <button class="tab" data-tab="pre"><span class="tab__i">📅</span><span class="tab__l">Vorbestellungen</span><span class="tab__s">Vorbestellt</span> <b id="bPre" hidden></b></button>
+        <button class="tab" data-tab="stock"><span class="tab__i">🧱</span><span class="tab__l">Lager</span><span class="tab__s">Lager</span> <b id="bStock" hidden></b></button>
+      </nav>
+      <div class="top__actions">
+        <button class="icon-btn" id="soundBtn" title="Ton bei neuen Bestellungen">🔔</button>
+        <a class="icon-btn" href="index.html" target="_blank" title="Shop öffnen">↗</a>
+        <button class="icon-btn" id="logout" title="Abmelden">⏻</button>
+      </div>
+    </header>
+
+    <div class="demo" id="demoBar" hidden><span>Du siehst <b>Demo-Daten</b>, damit das Dashboard nicht leer ist.</span><button class="btn btn--small" id="demoDelete">Demo-Daten löschen</button></div>
+
+    <main class="main">
+      <section class="view" id="view-overview">
+        <div class="view__head">
+          <div><h1 id="ovTitle">Letzte 7 Tage</h1><p class="muted" id="ovSub"></p></div>
+          <div class="seg" id="range" role="radiogroup" aria-label="Zeitraum">
+            <button class="is-active" data-range="7" role="radio" aria-checked="true">7 Tage</button>
+            <button data-range="30" role="radio" aria-checked="false">30 Tage</button>
+          </div>
+        </div>
+        <div class="kpis" id="kpis"></div>
+        <div class="grid">
+          <article class="card card--wide">
+            <header class="card__head"><div><h2>Umsatz pro Tag</h2><p class="muted">Bestellungen je Tag im Tooltip & in der Tabelle</p></div><button class="link" data-table="tDays">Tabelle</button></header>
+            <div class="chart" id="cDays"></div><div class="table-wrap" id="tDays" hidden></div>
+          </article>
+          <article class="card">
+            <header class="card__head"><div><h2>Umsatz nach Bereich</h2><p class="muted" id="mixSub"></p></div><button class="link" data-table="tMix">Tabelle</button></header>
+            <div id="cMix"></div><div class="table-wrap" id="tMix" hidden></div>
+          </article>
+          <article class="card">
+            <header class="card__head"><div><h2>Umsatz nach Marke</h2><p class="muted">Warenwert im Zeitraum</p></div><button class="link" data-table="tBrand">Tabelle</button></header>
+            <div class="chart" id="cBrand"></div><div class="table-wrap" id="tBrand" hidden></div>
+          </article>
+          <article class="card">
+            <header class="card__head"><div><h2>Top-Produkte</h2><p class="muted">nach verkaufter Menge</p></div><button class="link" data-table="tTop">Tabelle</button></header>
+            <div class="chart" id="cTop"></div><div class="table-wrap" id="tTop" hidden></div>
+          </article>
+          <article class="card">
+            <header class="card__head"><div><h2>Lager-Warnungen</h2><p class="muted">höchstens 3 Stück auf Lager</p></div><button class="link" data-goto="stock">Zum Lager →</button></header>
+            <ul class="mini-list" id="lowStock"></ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-orders" hidden>
+        <div class="view__head"><div><h1>Bestellungen</h1><p class="muted">Weiterschalten per Tipp – der Kunde bekommt bei Versand & Abholbereitschaft automatisch eine E-Mail.</p></div></div>
+        <div class="board">
+          <div class="lane"><h2><i class="dot dot--new"></i>Neu <b id="cNeu">0</b></h2><div class="lane__list" id="lNeu"></div></div>
+          <div class="lane"><h2><i class="dot dot--prep"></i>In Bearbeitung <b id="cPack">0</b></h2><div class="lane__list" id="lPack"></div></div>
+          <div class="lane"><h2><i class="dot dot--ready"></i>Abholbereit <b id="cReady">0</b></h2><div class="lane__list" id="lReady"></div></div>
+        </div>
+        <details class="done-list"><summary>Versendet & erledigt (letzte 7 Tage) <b id="cDone">0</b></summary><div id="doneList"></div></details>
+      </section>
+
+      <section class="view" id="view-pre" hidden>
+        <div class="view__head"><div><h1>Vorbestellungen</h1><p class="muted">Reservierte Mengen je Produkt – damit du rechtzeitig genug Ware bestellst.</p></div></div>
+        <div id="preList"></div>
+      </section>
+
+      <section class="view" id="view-stock" hidden>
+        <div class="view__head">
+          <div><h1>Lager</h1><p class="muted">Bestand ändert sich automatisch bei Bestellungen. Wareneingang hier mit + buchen.</p></div>
+          <div class="seg" id="stockFilter"><button class="is-active" data-sf="all">Alle</button><button data-sf="low">Knapp</button><button data-sf="out">Ausverkauft</button></div>
+        </div>
+        <label class="search"><input id="stockQ" type="search" placeholder="Produkt suchen …" aria-label="Produkt suchen"></label>
+        <div class="table-wrap stock-table" id="stockTable"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="modal" id="shipDialog">
+    <form method="dialog">
+      <h3 id="shipTitle">Versenden</h3>
+      <p class="muted">Die Sendungsnummer bekommt der Kunde per E-Mail und auf seiner Bestellseite.</p>
+      <label class="field"><span>DHL-Sendungsnummer</span><input id="shipTracking" inputmode="numeric" autocomplete="off" placeholder="z. B. 00340434…"></label>
+      <p class="note note--error" id="shipErr" hidden></p>
+      <div class="modal__actions"><button class="btn" value="cancel">Abbrechen</button><button class="btn btn--primary" value="ok" id="shipOk">Als versendet markieren</button></div>
+    </form>
+  </dialog>
+
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="data/catalog.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

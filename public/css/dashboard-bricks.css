@@ -1,0 +1,48 @@
+/* Bricks-spezifische Ergänzungen zum Dashboard */
+:root { --serif: "Bricolage Grotesque", "Inter", sans-serif; --espresso: #151515; --sage-dark: #0f6b49; --sage-soft: #e6f6ef; --rose: #d92b2b; --rose-soft: #fdecec; --bg: #faf8f5; }
+h1 { font-weight: 800; letter-spacing: -.02em; }
+.login__mark, .top__mark { background: #d92b2b; color: #fff; font-weight: 800; }
+.kpis { grid-template-columns: repeat(4, 1fr); }
+.order__ship { font-size: .82rem; color: var(--muted); }
+.order__ship b { color: var(--ink); }
+.pre-tag { font-size: .72rem; font-weight: 700; padding: .12rem .5rem; border-radius: 6px; background: #e8f0fc; color: #1c4f9c; }
+.tcg-tag { font-size: .72rem; font-weight: 700; padding: .12rem .5rem; border-radius: 6px; background: #fff3c4; color: #6b5200; }
+
+.search { display: flex; margin-bottom: .8rem; }
+.search input { flex: 1; font: inherit; font-size: 16px; min-height: 46px; padding: 0 .9rem; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); outline: none; }
+.search input:focus { border-color: var(--ink); }
+.stock-table { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: .4rem .8rem; margin-top: 0; }
+.stock-table td { vertical-align: middle; }
+.stock-table small { color: var(--muted); display: block; }
+.stock-num { font-weight: 800; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.stock-btns { display: flex; gap: .3rem; justify-content: flex-end; }
+.stock-btns button { min-width: 40px; min-height: 36px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); font-weight: 700; }
+.stock-row--out { background: #fdf3f3; }
+
+.pre-card { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 1.1rem 1.2rem; margin-bottom: .9rem; }
+.pre-card__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1rem; }
+.pre-card__head h2 { font-family: var(--serif); font-size: 1.35rem; font-weight: 800; }
+.pre-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; margin: .9rem 0; }
+.pre-stats div { background: var(--bg); border-radius: 12px; padding: .6rem .8rem; }
+.pre-stats b { display: block; font-size: 1.4rem; font-weight: 800; }
+.pre-stats span { font-size: .78rem; color: var(--muted); }
+
+.modal { border: 0; border-radius: 20px; padding: 1.4rem; width: min(420px, calc(100% - 32px)); background: var(--paper); color: var(--ink); }
+.modal::backdrop { background: rgba(0, 0, 0, .45); }
+.modal h3 { margin: 0 0 .3rem; font-size: 1.3rem; }
+.modal .field input { font-size: 1.05rem; letter-spacing: .05em; text-align: left; }
+.modal__actions { display: flex; gap: .6rem; }
+.modal__actions .btn { flex: 1; }
+
+@media (max-width: 1080px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+  .pre-stats { grid-template-columns: 1fr 1fr; }
+  .stock-table { padding: .2rem .4rem; }
+  .stock-table th:nth-child(2), .stock-table td:nth-child(2),
+  .stock-table th:nth-child(3), .stock-table td:nth-child(3) { display: none; }
+  .stock-table table { width: 100%; table-layout: auto; }
+  .stock-table td:last-child { width: 1%; white-space: nowrap; }
+  .stock-table td:last-child, .stock-table th:last-child { padding-right: .2rem; }
+  .stock-btns { flex-wrap: nowrap; gap: .2rem; }
+  .stock-btns button { min-width: 36px; padding: 0 .25rem; }
+}

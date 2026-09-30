@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#faf8f5">
+  <meta name="robots" content="noindex">
+  <title>Kasse · Bricks</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'><rect x='2' y='12' width='44' height='26' rx='4' fill='%23d92b2b'/><rect x='8' y='5' width='12' height='9' rx='3' fill='%23e8483f'/><rect x='28' y='5' width='12' height='9' rx='3' fill='%23e8483f'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+  <header class="header" id="header"></header>
+  <main class="checkout">
+    <div class="container">
+      <a class="link" href="index.html#shop">← Weiter einkaufen</a>
+      <h1>Kasse</h1>
+      <div id="coEmpty" class="note note--info" hidden>Dein Warenkorb ist leer. <a href="index.html#shop">Zum Shop</a></div>
+      <p class="note" id="coNote" hidden></p>
+
+      <div class="co-grid" id="coGrid">
+        <form id="coForm" novalidate>
+          <section class="co-step">
+            <h2><i>1</i>Kontakt</h2>
+            <div class="field-row">
+              <label class="field"><span>E-Mail *</span><input name="email" type="email" inputmode="email" autocomplete="email" required></label>
+              <label class="field"><span>Telefon (für Rückfragen)</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel"></label>
+            </div>
+          </section>
+
+          <section class="co-step">
+            <h2><i>2</i>Lieferung</h2>
+            <label class="choice"><input type="radio" name="delivery" value="ship" checked>
+              <span><b>Versand mit <span data-ship="carrier">DHL</span></b><small id="shipInfo"></small></span><span class="choice__price" id="shipPrice"></span></label>
+            <label class="choice"><input type="radio" name="delivery" value="pickup">
+              <span><b>Abholung im Laden</b><small id="pickupInfo"></small></span><span class="choice__price">kostenlos</span></label>
+            <p class="note note--info" id="preNote" hidden></p>
+          </section>
+
+          <section class="co-step" id="addrStep">
+            <h2><i>3</i>Lieferadresse</h2>
+            <label class="field"><span>Vor- und Nachname *</span><input name="name" autocomplete="name" required></label>
+            <label class="field"><span>Straße und Hausnummer *</span><input name="street" autocomplete="street-address" required></label>
+            <div class="field-row">
+              <label class="field" style="flex:0 0 34%"><span>PLZ *</span><input name="zip" inputmode="numeric" pattern="\d{5}" maxlength="5" autocomplete="postal-code" required></label>
+              <label class="field"><span>Ort *</span><input name="city" autocomplete="address-level2" required></label>
+            </div>
+            <p class="fine">Wir liefern innerhalb Deutschlands.</p>
+          </section>
+
+          <section class="co-step" id="nameStep" hidden>
+            <h2><i>3</i>Abholung</h2>
+            <label class="field"><span>Name für die Abholung *</span><input name="pickupName" autocomplete="name"></label>
+            <p class="fine" id="pickupAddr"></p>
+          </section>
+
+          <section class="co-step">
+            <h2><i>4</i>Zahlung</h2>
+            <label class="choice"><input type="radio" name="payment" value="online" checked>
+              <span><b>Online bezahlen</b><small>Kreditkarte, PayPal, Apple Pay, Google Pay, Klarna – sicher über Stripe</small></span></label>
+            <label class="choice" id="payStore"><input type="radio" name="payment" value="store">
+              <span><b>Bei Abholung bezahlen</b><small>bar oder mit Karte im Laden</small></span></label>
+            <label class="field"><span>Anmerkung (optional)</span><textarea name="note" maxlength="300" placeholder="z. B. Geschenk – bitte ohne Rechnung ins Paket"></textarea></label>
+            <label class="check"><input type="checkbox" name="terms" required><span>Ich habe die <a href="#">AGB</a> und die <a href="#">Widerrufsbelehrung</a> gelesen und akzeptiere sie. Hinweise zum <a href="#">Datenschutz</a>.</span></label>
+            <button class="btn btn--primary btn--block" type="submit" id="coSubmit">Zahlungspflichtig bestellen</button>
+            <p class="secure">🔒 Verschlüsselte Übertragung · Zahlungsdaten laufen direkt über Stripe</p>
+          </section>
+        </form>
+
+        <aside class="co-summary is-collapsed" id="coSummary">
+          <button class="co-toggle" type="button" id="coToggle" aria-expanded="false"><span>Bestellübersicht anzeigen ▾</span><b id="coToggleTotal"></b></button>
+          <h2>Deine Bestellung</h2>
+          <div class="co-body">
+            <ul class="co-lines" id="coLines"></ul>
+            <div class="co-sums" id="coSums"></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <footer class="footer" id="footer"></footer>
+
+  <script src="data/catalog.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

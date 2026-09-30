@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#151515">
+  <title>Pokémon TCG – Booster, Displays & Spieltreffs · Bricks</title>
+  <meta name="description" content="Pokémon TCG bei Bricks: Booster, Displays, Top-Trainer-Boxen und Zubehör online bestellen oder vorbestellen – mit fairem Kauflimit und Spieltreffs im Laden.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 40'><rect x='2' y='12' width='44' height='26' rx='4' fill='%23d92b2b'/><rect x='8' y='5' width='12' height='9' rx='3' fill='%23e8483f'/><rect x='28' y='5' width='12' height='9' rx='3' fill='%23e8483f'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/shop.css">
+</head>
+<body class="page-tcg">
+  <header class="header" id="header"></header>
+  <main>
+    <section class="tcg-hero">
+      <div class="container tcg-hero__inner">
+        <div>
+          <span class="eyebrow">Neu bei Bricks · Pokémon TCG</span>
+          <h1>Booster, Boxen &amp; <span class="hl hl--y">Spieltreffs.</span></h1>
+          <p class="lead">Versiegelte Originalware, faire Kauflimits und Vorbestellungen mit Garantie – online bestellt, sicher verpackt verschickt oder im Laden abgeholt.</p>
+          <div class="cta"><a class="btn btn--yellow" href="#sortiment">Sortiment ansehen</a><a class="btn btn--outline-light" href="#releases">Release-Kalender</a></div>
+        </div>
+        <div class="tcg-hero__art" id="tcgHeroArt" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container promises" id="promises"></div>
+    </section>
+
+    <section class="section section--white" id="releases">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">Release-Kalender</span><h2>Was als Nächstes kommt</h2></div>
+          <p>Vorbestellungen sind garantiert – solange das Kontingent reicht. Abholung am Release-Tag oder Versand zum Release.</p></div>
+        <div class="releases" id="releaseList"></div>
+      </div>
+    </section>
+
+    <section class="section" id="sortiment">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">Sortiment</span><h2>Alles für Sammler & Spieler</h2></div></div>
+        <div class="filters filters--plain"><div class="chips" id="typeChips" role="tablist" aria-label="Produktart"></div></div>
+        <div class="grid" id="tcgGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="container tcg-start">
+        <div class="tcg-start__box">
+          <span class="eyebrow">Neu im Spiel?</span>
+          <h2>So gelingt der Einstieg.</h2>
+          <ol class="steps">
+            <li><b>Starter-Deck holen</b><span>Sofort spielbereit, mit Anleitung.</span></li>
+            <li><b>Zum Spieltreff kommen</b><span>Wir erklären die Regeln – Leih-Decks sind da.</span></li>
+            <li><b>Karten schützen</b><span>Hüllen und Ordner für die ersten Schätze.</span></li>
+          </ol>
+          <div class="cta"><button class="btn btn--primary" data-add="t06">Starter-Deck in den Korb</button><a class="btn btn--ghost" href="events.html?filter=tcg">Spieltreffs ansehen</a></div>
+        </div>
+        <div class="tcg-events" id="tcgEvents"></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="footer"></footer>
+
+  <script src="data/catalog.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/tcg.js"></script>
+</body>
+</html>

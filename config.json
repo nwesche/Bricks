@@ -1,0 +1,19 @@
+{
+  "port": 8090,
+  "dashboardPin": "1234",
+  "demoData": true,
+  "publicUrl": "",
+
+  "stripe": {
+    "secretKey": "",
+    "webhookSecret": ""
+  },
+
+  "smtp": {
+    "host": "",
+    "port": 587,
+    "user": "",
+    "password": "",
+    "from": "Bricks <shop@bricks-laden.de>"
+  }
+}

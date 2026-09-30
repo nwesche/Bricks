@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Demo-Zahlung · Bricks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/shop.css">
+  <style>.demo-bar { background: #2f2a6b; color: #fff; text-align: center; padding: .7rem 16px; font-weight: 600; font-size: .9rem; }</style>
+</head>
+<body>
+  <div class="demo-bar">🧪 DEMO-MODUS – hier wird nichts bezahlt. Mit einem Stripe-Schlüssel in config.json erscheint die echte Stripe-Bezahlseite.</div>
+  <main class="status-page">
+    <div class="container">
+      <article class="status-card">
+        <span class="eyebrow" id="payNo">Zahlung</span>
+        <h1>Online bezahlen</h1>
+        <p class="lead">Zu zahlen: <b id="payTotal">–</b></p>
+        <ul class="co-lines" id="payLines"></ul>
+        <p class="fine">Welche Zahlarten erscheinen (Karte, PayPal, Apple Pay, Google Pay, Klarna …), stellst du später im Stripe-Dashboard ein.</p>
+        <p class="note" id="payErr" hidden></p>
+        <div class="cta"><button class="btn btn--primary" id="ok">Zahlung erfolgreich simulieren</button><button class="btn btn--ghost" id="cancel">Abbrechen</button></div>
+      </article>
+    </div>
+  </main>
+  <script>
+    const t = new URLSearchParams(location.search).get("t");
+    const euro = (n) => n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+    fetch(`/api/status/${encodeURIComponent(t)}`).then((r) => r.ok ? r.json() : Promise.reject()).then((o) => {
+      document.getElementById("payNo").textContent = `Bestellung #${o.number}`;
+      document.getElementById("payTotal").textContent = euro(o.total);
+      document.getElementById("payLines").replaceChildren(...o.lines.map((l) => Object.assign(document.createElement("li"), { className: "co-line", textContent: `${l.qty} × ${l.name}` })));
+      if (o.status !== "zahlung") { const e = document.getElementById("payErr"); e.textContent = "Diese Bestellung wartet nicht mehr auf eine Zahlung."; e.hidden = false; document.getElementById("ok").disabled = true; }
+    }).catch(() => { const e = document.getElementById("payErr"); e.textContent = "Bestellung nicht gefunden."; e.hidden = false; });
+    async function go(action) {
+      document.getElementById("ok").disabled = document.getElementById("cancel").disabled = true;
+      const r = await fetch(`/api/demo-pay/${encodeURIComponent(t)}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) });
+      location.href = (await r.json()).redirectUrl || "/";
+    }
+    document.getElementById("ok").onclick = () => go("pay");
+    document.getElementById("cancel").onclick = () => go("cancel");
+  </script>
+</body>
+</html>
